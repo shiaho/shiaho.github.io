@@ -33,7 +33,7 @@ Netlink是一种特殊的socket，用来实现用户态进程与内核的信息�
 
 taskstats属于`NETLINK_GENERIC`子协议。NETLINK_GENERIC有特殊的请求头 `GenlMsghdr`
 
-~~~
+~~~golang
 type GenlMsghdr struct {
 	Cmd      uint8
 	Version  uint8
@@ -44,7 +44,7 @@ type GenlMsghdr struct {
 
 在 `/usr/include/linux/taskstats.h` 有关于 taskstate的定义，首先先将其中的定义转换为go的定义
 
-~~~
+~~~golang
 const (
 	TS_COMM_LEN = 32
 )
@@ -228,7 +228,7 @@ const (
 
 有了taskstate的golang版定义，就可以通过 syscall.socket 来获取taskstate信息了
 
-~~~
+~~~golang
 import (
 	"encoding/binary"
 	"github.com/hkwi/nlgo"
