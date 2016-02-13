@@ -5,6 +5,7 @@ tagline: "Supporting tagline"
 description: ""
 category: note
 tags: [golang, linux, moniter]
+wordpress_id: bf7ef145bff61ef14b3ca8838204720a
 ---
 {% include JB/setup %}
 
