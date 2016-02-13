@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "golang 通过 netlink 获取 taskstats"
-tagline: "Supporting tagline"
+author: ksh
+tagline: ""
 description: ""
 category: note
 tags: [golang, linux, moniter]
@@ -35,18 +36,24 @@ Netlink是一种特殊的socket，用来实现用户态进程与内核的信息�
 
 taskstats属于`NETLINK_GENERIC`子协议。NETLINK_GENERIC有特殊的请求头 `GenlMsghdr`
 
-~~~golang
+{% highlight ruby lineno %}
+require 'redcarpet'
+markdown = Redcarpet.new("Hello World!")
+puts markdown.to_html
+{% endhighlight %}
+
+{% highlight golang lineno %}
 type GenlMsghdr struct {
 	Cmd      uint8
 	Version  uint8
 	Reserved uint16
 }
-~~~
+{% endhighlight %}
 
 
 在 `/usr/include/linux/taskstats.h` 有关于 taskstate的定义，首先先将其中的定义转换为go的定义
 
-~~~golang
+{% highlight golang lineno %}
 const (
 	TS_COMM_LEN = 32
 )
@@ -224,13 +231,13 @@ const (
 	TASKSTATS_CMD_ATTR_DEREGISTER_CPUMASK
 	__TASKSTATS_CMD_ATTR_MAX
 )
-~~~
+{% endhighlight %}
 
 ##实现
 
 有了taskstate的golang版定义，就可以通过 syscall.socket 来获取taskstate信息了
 
-~~~golang
+{% highlight golang lineno %}
 import (
 	"encoding/binary"
 	"github.com/hkwi/nlgo"
@@ -339,7 +346,7 @@ func parse_attributes(data []byte) map[int]Attr {
 	}
 	return attrs
 }
-~~~
+{% endhighlight %}
 
 这里借用了 `github.com/hkwi/nlgo` 库的创建套接字和请求头的定义，这部分完全自己实现其实也很容易。`github.com/hkwi/nlgo` 中没有和taskstats相关的定义，所以这部分需要自已做。
 
