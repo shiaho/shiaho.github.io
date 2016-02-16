@@ -36,12 +36,6 @@ Netlink是一种特殊的socket，用来实现用户态进程与内核的信息�
 
 taskstats属于`NETLINK_GENERIC`子协议。NETLINK_GENERIC有特殊的请求头 `GenlMsghdr`
 
-{% highlight ruby lineno %}
-require 'redcarpet'
-markdown = Redcarpet.new("Hello World!")
-puts markdown.to_html
-{% endhighlight %}
-
 {% highlight golang lineno %}
 type GenlMsghdr struct {
 	Cmd      uint8
@@ -53,7 +47,7 @@ type GenlMsghdr struct {
 
 在 `/usr/include/linux/taskstats.h` 有关于 taskstate的定义，首先先将其中的定义转换为go的定义
 
-{% highlight golang lineno %}
+```golang
 const (
 	TS_COMM_LEN = 32
 )
@@ -231,13 +225,13 @@ const (
 	TASKSTATS_CMD_ATTR_DEREGISTER_CPUMASK
 	__TASKSTATS_CMD_ATTR_MAX
 )
-{% endhighlight %}
+```
 
-##实现
+## 实现
 
 有了taskstate的golang版定义，就可以通过 syscall.socket 来获取taskstate信息了
 
-{% highlight golang lineno %}
+```golang
 import (
 	"encoding/binary"
 	"github.com/hkwi/nlgo"
@@ -346,7 +340,7 @@ func parse_attributes(data []byte) map[int]Attr {
 	}
 	return attrs
 }
-{% endhighlight %}
+```
 
 这里借用了 `github.com/hkwi/nlgo` 库的创建套接字和请求头的定义，这部分完全自己实现其实也很容易。`github.com/hkwi/nlgo` 中没有和taskstats相关的定义，所以这部分需要自已做。
 
@@ -369,11 +363,12 @@ type S1 struct {
 	a uint8
 	b uint8
 	c uint8
+	d uint8
 	i int32
 }
 
 func main() {
-	data := []byte{0x01, 0x02, 0x03, 0x10, 0x00, 0x00, 0x00}
+	data := []byte{0x01, 0x02, 0x03, 0x04, 0x10, 0x00, 0x00, 0x00}
 	s1 := (*S1)(unsafe.Pointer(&data[0]))
 	fmt.Println(s1)
 }
@@ -384,7 +379,7 @@ func main() {
 ```
 &{1 2 3 4 16}
 ```
-S1的每个属性都按顺序从字节数组中读取了数据
+`S1`的每个属性都按顺序从字节数组中读取了数据
 
 如果去掉一个 `uint8` 会怎么样呢
 
@@ -409,13 +404,15 @@ func main() {
 }
 ```
 
-```
+```golang
 &{1 2 3 5}
 ```
-可以发现 第4个字节的数据(0x04) 并没有被读取而是直接从第5个字节开始读取了4个字节载入 `i int32`中
+可以发现 第4个字节的数据(0x04) 并没有被读取而是直接从第5个字节开始读取了4个字节载入 `i int32`中，这其实是由于golang中的结构体属性的字节对齐导致的。
 
 ## C中的 __attribute__((aligned(8)));
-...
+
+在 `taskstate.h` 的结构体定义里出现了几处 `__attribute__((aligned(8)))`，这个的意思是以8字节来进行地址对齐，
+
 
 
 
