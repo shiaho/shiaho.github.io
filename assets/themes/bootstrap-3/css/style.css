@@ -31,7 +31,9 @@ h1, h2, h3, h4 {
   color: #CCCCCC;
 }
 
-
+.content {
+  word-break: break-all;
+}
 
 /* posts index */
 .post > h3.title {
