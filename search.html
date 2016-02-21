@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: Search
 tagline: search my post
 ---
@@ -13,12 +13,8 @@ tagline: search my post
 
 <script type="text/javascript">
 	document.onreadystatechange = function () {
-		var state = document.readyState
-		if (state == 'interactive') {
-		  //init()
-		} else if (state == 'complete') {
-	    	//initOnCompleteLoad()
-        	$.urlParam = function(name){
+		if (document.readyState == 'complete') {
+        	var urlParam = function(name){
 			    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
 			    if (results==null){
 			       return null;
@@ -27,29 +23,26 @@ tagline: search my post
 			       return results[1] || 0;
 			    }
 			}
-			$(function(){
-				var search_input =  $('#search-input');
-	        	var query = $.urlParam('query');
-	        	search_input.val(query);
-				
-		        SimpleJekyllSearch({
-		          searchInput: document.getElementById('search-input'),
-		          resultsContainer: document.getElementById('results-container'),
-		          json: '/search.json',
-		          searchResultTemplate: '<h3><a href="{url}">{title}</a></h3><p><small><strong>{date}</strong> . {category} . <span   class="author">@{author}</span><a href="{url}#disqus_thread"></a></small></p>',
-		          noResultsText: 'No results found',
-		          limit: 10,
-		          fuzzy: false,
-		          exclude: ['Welcome']
-		        });
+			var search_input =  $('#search-input');
+        	var query = urlParam('query');
+        	if(query){
+        		search_input.val(query);	
+        	}
+        	
+	        SimpleJekyllSearch({
+	          searchInput: document.getElementById('search-input'),
+	          resultsContainer: document.getElementById('results-container'),
+	          json: '/search.json',
+	          searchResultTemplate: '<h3><a href="{url}">{title}</a></h3><p><small><strong>{date}</strong> . {category} . <span   class="author">@{author}</span><a href="{url}#disqus_thread"></a></small></p>',
+	          noResultsText: '<h3>No results found</h3>',
+	          limit: 10,
+	          fuzzy: false
+	        });
 
-		        search_input.bind('keyup', (function(){
-		        	$this = $(this);
-		        	history.replaceState({}, window.title, window.location.pathname+'?query='+$this.val())
-		        }))
-
-			})
-			
+	        search_input.bind('keyup', (function(){
+	        	$this = $(this);
+	        	history.replaceState({}, window.title, window.location.pathname+'?query='+$this.val())
+	        }))
 		}
 	};
 </script>
