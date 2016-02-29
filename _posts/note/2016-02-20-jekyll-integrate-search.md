@@ -145,7 +145,7 @@ tagline: search my post
 首先定义了一个 `urlParam` 函数，来获取URL中的参数，然后设置到输入框中，并且绑定输入框的 keyup 事件将输入框中的最新值通过 `history.replaceState` 在reload的情况下更新到地址栏，这样的目的是可以方便在后退时回到之前的搜索关键词
 目前虽然在加载时设置了输入框的值，但是并不能够触发搜索，这里需要修改 `jekyll-search.js` 才行
 
-```js
+```javascript
 function registerInput(){
     options.searchInput.addEventListener('keyup', function(e){
       var key = e.which
@@ -157,10 +157,12 @@ function registerInput(){
       }
     })
     var query = options.searchInput.value;
+    /* Add start */
     if(query) {
       emptyResultsContainer();
       render( repository.search(query) );
     }
+    /* Add end */
   }
 ```
 
