@@ -1776,7 +1776,7 @@ h1, h2, h3, h4 {
     padding: 0 40px;
 }
 
-.article-entry p{
+.article-entry{
     word-break: break-all;
 }
 
