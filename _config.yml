@@ -1,7 +1,9 @@
 # This is the default format. 
 # For more see: http://jekyllrb.com/docs/permalinks/
 permalink: /:categories/:year/:month/:day/:title 
-
+gems:
+  - jekyll-paginate
+  - jekyll-feed
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
 excerpt_separator: <!--more-->
 #highlighter: pygments
@@ -11,6 +13,10 @@ kramdown:
   input:          GFM
   auto_ids:       true
   auto_id_prefix: 'id-'
+paginate: 5
+paginate_path: "/page/:num"
+feed:
+  path: atom.xml
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
@@ -126,6 +132,8 @@ JB :
   #
   sharing :
     provider : false
+  posts_collate:
+    provider: custom
     
   # Settings for all other include helpers can be defined by creating 
   # a hash with key named for the given helper. ex:

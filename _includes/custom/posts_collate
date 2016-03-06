@@ -1,0 +1,77 @@
+{% for post in posts_collate  %}
+  {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
+  {% capture this_month %}{{ post.date | date: "%B" }}{% endcapture %}
+  {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
+  {% capture next_month %}{{ post.previous.date | date: "%B" }}{% endcapture %}
+
+  {% if forloop.first %}
+  <section class="archives-wrap">
+    <div class="archive-year-wrap">
+      <a href="#" class="archive-year">{{this_year}}</a><br/>
+      <div class="archive-month">{{this_month}}</div>
+    </div>
+    <div class="archives">
+  {% endif %}
+
+
+  <article class="archive-article archive-type-post">
+      <div class="archive-article-inner">
+      <header class="archive-article-header">
+          <div class="article-meta">
+            <a href="{{ post.url }}" class="archive-article-date"><time datetime="{{ post.date }}" itemprop="datePublished">{{ post.date | date: "%Y-%m-%d" }}</time></a>
+          </div>
+      <h1 itemprop="name">
+        <a class="archive-article-title" href="{{ post.url }}">{{ post.title }}</a>
+      </h1>
+          <div class="article-info info-on-right"> 
+            {% unless post.tags == empty %}
+              {% assign tags_list = post.tags %}
+              <div class="article-tag tagcloud">
+              <ul class="article-tag-list" style="padding: 0;">
+                 {% for tag in tags_list %} 
+                 <li class="article-tag-list-item"><a class="color1" href="{{ BASE_PATH }}{{ site.JB.tags_path }}#{{ tag[0] }}-ref" style="font-size: 12px;">{{ tag }}</a>
+                 </li>
+               {% endfor %}
+              </ul>
+              </div>
+            {% endunless %} 
+            {% unless post.categories == empty %}
+              {% assign categories_list = post.categories %}
+              <div class="article-category tagcloud">
+              {% for category in categories_list %} 
+               <a class="color5" href="{{ BASE_PATH }}{{ site.JB.categories_path }}#{{ category }}-ref" style="font-size: 12px;">{{ category | join: "/" }}</a>
+               {% endfor %}
+              </div>
+            {% endunless %}  
+          </div>
+          <div class="clearfix"></div>
+      </header>
+    </div>
+  </article>
+
+  {% if forloop.last %}
+    </div>
+  {% else %}
+    {% if this_year != next_year %}
+      </div>
+    </section>
+     <section class="archives-wrap">
+      <div class="archive-year-wrap">
+        <a href="#" class="archive-year">{{next_year}}</a>
+        <div class="archive-month">{{next_month}}</div>
+      </div>
+      <div class="archives">
+    {% else %}    
+      {% if this_month != next_month %}
+        </div>
+    </section>
+     <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <div class="archive-month">{{next_month}}</div>
+        </div>
+        <div class="archives">
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+

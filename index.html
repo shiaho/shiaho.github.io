@@ -4,7 +4,7 @@ title: Posts
 tagline: share my post
 ---
 {% include JB/setup %}
-{% for post in site.posts %} 
+{% for post in paginator.posts %} 
 <article id="post-ad-effective-theory" class="article article-type-post show is-hiddened" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
@@ -29,7 +29,7 @@ tagline: share my post
       <div class="article-tag tagcloud">
       <ul class="article-tag-list" style="padding: 0;">
          {% for tag in tags_list %} 
-         <li class="article-tag-list-item"><a class="color5" href="{{ BASE_PATH }}{{ site.JB.tags_path }}#{{ tag[0] }}-ref" style="font-size: 12px;">{{ tag }}</a>
+         <li class="article-tag-list-item"><a class="color1" href="{{ BASE_PATH }}{{ site.JB.tags_path }}#{{ tag[0] }}-ref" style="font-size: 12px;">{{ tag }}</a>
          </li>
        {% endfor %}
       </ul>
@@ -52,3 +52,22 @@ tagline: share my post
   </div>
 </article>
 {% endfor %}
+
+<nav id="page-nav">
+  {% if paginator.previous_page %}
+      <a class="extend prev" rel="prev" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">« Prev</a>
+  {% endif %}
+  <!-- <span class="space">…</span> -->
+  {% for page in (1..paginator.total_pages) %}
+    {% if page == paginator.page %}
+      <span class="page-number current">{{ page }}</span>
+    {% elsif page == 1 %}
+      <a class="page-number" href="/">1</a>
+    {% else %}
+      <a class="page-number" href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
+    {% endif %}
+  {% endfor %}
+  {% if paginator.next_page %}
+    <a class="extend next" rel="next" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Next »</a>
+  {% endif %}
+</nav>
