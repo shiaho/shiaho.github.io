@@ -1772,7 +1772,9 @@ h1, h2, h3, h4 {
 
 
 
-
+.comments {
+    padding: 0 40px;
+}
 
 /*
  * Syntax highlighting
