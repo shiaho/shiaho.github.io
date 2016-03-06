@@ -1,0 +1,54 @@
+---
+layout: default
+title: Posts
+tagline: share my post
+---
+{% include JB/setup %}
+{% for post in site.posts %} 
+<article id="post-ad-effective-theory" class="article article-type-post show is-hiddened" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/02/ad-effective-theory/" class="article-date">
+  	<time datetime="{{ post.date }}" itemprop="datePublished">{{ post.date | date: "%Y-%m-%d" }}</time>
+</a>
+    </div>
+  <div class="article-inner">
+      <input type="hidden" class="isFancy">
+      <header class="article-header">
+        <h1 itemprop="name">
+          <a class="article-title" href="{{ post.url }}">{{ post.title }}</a>
+        </h1>
+      </header>
+    <div class="article-entry" itemprop="articleBody">
+      <p><em>by:{{ post.author }}</em></p>
+      <p>{{ post.excerpt }}</p>
+    </div>
+    <div class="article-info article-info-index">
+    {% unless post.tags == empty %}
+      {% assign tags_list = post.tags %}
+      <div class="article-tag tagcloud">
+      <ul class="article-tag-list" style="padding: 0;">
+         {% for tag in tags_list %} 
+         <li class="article-tag-list-item"><a class="color5" href="{{ BASE_PATH }}{{ site.JB.tags_path }}#{{ tag[0] }}-ref" style="font-size: 12px;">{{ tag }}</a>
+         </li>
+       {% endfor %}
+      </ul>
+      </div>
+    {% endunless %} 
+    {% unless post.categories == empty %}
+      {% assign categories_list = post.categories %}
+      <div class="article-category tagcloud">
+      {% for category in categories_list %} 
+       <a class="color5" href="{{ BASE_PATH }}{{ site.JB.categories_path }}#{{ category }}-ref" style="font-size: 12px;">{{ category | join: "/" }}</a>
+       {% endfor %}
+      </div>
+    {% endunless %}  
+  	
+    <p class="article-more-link">
+      <a href="{{ post.url }}">more &gt;&gt;</a>
+    </p>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+{% endfor %}

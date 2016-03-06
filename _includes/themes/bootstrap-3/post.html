@@ -1,33 +1,47 @@
-<div class="page-header">
-  <h1>{{ page.title }} {% if page.tagline %}<small>{{page.tagline}}</small>{% endif %}</h1>
+<article id="post-ad-effective-theory" class="article article-type-post" itemscope="" itemprop="blogPost">
+<div class="article-meta">
+     <a href="{{ page.url }}" class="article-date">
+    <time datetime="{{ page.date }}" itemprop="datePublished">{{ page.date | date: "%Y-%m-%d" }}</time>
+</a>
 </div>
-
-<div class="row post-full">
-  <div class="col-xs-12">
-    <div class="date">
-      <span>{{ page.date | date_to_long_string }}</span>
-      <span class="author">@{{ page.author }}</span>
-    </div>
-    <div class="content">
-      {{ content }}
-    </div>
-
-  {% unless page.categories == empty %}
-    <ul class="tag_box inline">
-      <li><i class="glyphicon glyphicon-open"></i></li>
-      {% assign categories_list = page.categories %}
-      {% include JB/categories_list %}
-    </ul>
-  {% endunless %}  
-
+<div class="article-inner">
+      <input type="hidden" class="isFancy">
+      <header class="article-header">
+        <h1 class="article-title" itemprop="name">
+          {{ page.title }}
+        </h1>
+      </header>
+      <div class="article-info article-info-post">
   {% unless page.tags == empty %}
-    <ul class="tag_box inline">
-      <li><i class="glyphicon glyphicon-tags"></i></li>
-      {% assign tags_list = page.tags %}
-      {% include JB/tags_list %}
+    {% assign tags_list = page.tags %}
+    <div class="article-tag tagcloud">
+    <ul class="article-tag-list" style="padding: 0;">
+       {% for tag in tags_list %} 
+       <li class="article-tag-list-item"><a class="color5" href="{{ BASE_PATH }}{{ site.JB.tags_path }}#{{ tag[0] }}-ref" style="font-size: 12px;">{{ tag }}</a>
+       </li>
+     {% endfor %}
     </ul>
+    </div>
   {% endunless %}  
-  
+  {% unless page.categories == empty %}
+    {% assign categories_list = page.categories %}
+    <div class="article-category tagcloud">
+    {% for category in categories_list %} 
+     <a class="color5" href="{{ BASE_PATH }}{{ site.JB.categories_path }}#{{ category }}-ref" style="font-size: 12px;">{{ category | join: "/" }}</a>
+     {% endfor %}
+    </div>
+  {% endunless %}  
+    <div class="clearfix"></div>
+    </div>
+    <div class="article-entry" itemprop="articleBody"><p><em>by:{{ page.author }}</em></p>
+      <p>
+        {{ content }}
+      </p>
+    </div>
+  </div>
+</div>
+<div class="row post-full">
+  <div class="col-xs-12">  
     <hr>
     <ul class="pagination">
     {% if page.previous %}
@@ -43,6 +57,8 @@
     {% endif %}
     </ul>
     <hr>
-    {% include JB/comments %}
   </div>
 </div>
+</article>
+
+{% include JB/comments %}
