@@ -1776,6 +1776,33 @@ h1, h2, h3, h4 {
     padding: 0 40px;
 }
 
+.article-entry p{
+    word-break: break-all;
+}
+
+#footer {
+    font-size: 12px;
+    font-family: Menlo,Monaco,"Andale Mono","lucida console","Courier New",monospace;
+    text-shadow: 0 1px #fff;
+    position: absolute;
+    bottom: 30px;
+    opacity: .6;
+    width: 100%;
+    text-align: center;
+}
+
+#footer .outer {
+    padding: 0 30px
+}
+
+.footer-left {
+    float: left
+}
+
+.footer-right {
+    float: right
+}
+
 /*
  * Syntax highlighting
  */

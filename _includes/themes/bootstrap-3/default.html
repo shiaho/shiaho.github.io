@@ -8,7 +8,7 @@
     <meta name="author" content="{{ site.author.name }}">
 
     <!-- Enable responsive viewport -->
-    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="full-screen" content="yes">
     <meta name="x5-fullscreen" content="true">
@@ -165,19 +165,21 @@
               {{ content }}
           </div>
           <div id="footer">
-            <div class="container">
-              <p>&copy; {{ site.time | date: '%Y' }} {{ site.author.name }}
-                with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
-              </p>
-            </div>
+            <div class="outer">
+              <div>
+                <p>&copy; {{ site.time | date: '%Y' }} {{ site.author.name }}
+                  with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+                </p>
+              </div>
+            <div>
           </div>
         </div>
+        {% include JB/analytics %}
+        <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="{{ ASSET_PATH }}/jekyll-search.js" type="text/javascript"></script>
+        <script src="{{ ASSET_PATH }}/bootstrap/js/bootstrap.min.js"></script>
       </div>
-    {% include JB/analytics %}
-    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="{{ ASSET_PATH }}/jekyll-search.js" type="text/javascript"></script>
-    <script src="{{ ASSET_PATH }}/bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>
