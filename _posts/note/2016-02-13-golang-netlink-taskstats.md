@@ -15,7 +15,7 @@ wordpress_id: bf7ef145bff61ef14b3ca8838204720a
 
 
 Netlink是一种特殊的socket，用来实现用户态进程与内核的信息通信。可以通过`AF_NETLINK`来创建一个netlink套接字(socket),netlink协议由多个子协议组成目前包括:
-
+<!--more-->
  * NETLINK_ROUTE
  * NETLINK_W1
  * NETLINK_USERSOCK

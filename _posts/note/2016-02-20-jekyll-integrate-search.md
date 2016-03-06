@@ -15,6 +15,7 @@ author: ksh
 后来找到了这个库基本符合需求: [https://github.com/christian-fei/Simple-Jekyll-Search](https://github.com/christian-fei/Simple-Jekyll-Search){:target="_blank"}
 于是基于这个库做了一些修改实现了这个功能
 
+<!--more-->
 
 ## 安装 simple-jekyll-search
 

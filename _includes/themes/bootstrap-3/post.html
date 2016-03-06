@@ -1,8 +1,8 @@
 <article id="post-ad-effective-theory" class="article article-type-post" itemscope="" itemprop="blogPost">
 <div class="article-meta">
-     <a href="{{ page.url }}" class="article-date">
+  <a href="{{ page.url }}" class="article-date">
     <time datetime="{{ page.date }}" itemprop="datePublished">{{ page.date | date: "%Y-%m-%d" }}</time>
-</a>
+  </a>
 </div>
 <div class="article-inner">
       <input type="hidden" class="isFancy">
@@ -38,27 +38,22 @@
         {{ content }}
       </p>
     </div>
-  </div>
 </div>
-<div class="row post-full">
-  <div class="col-xs-12">  
-    <hr>
-    <ul class="pagination">
-    {% if page.previous %}
-      <li class="prev"><a href="{{ BASE_PATH }}{{ page.previous.url }}" title="{{ page.previous.title }}">&laquo; Previous</a></li>
-    {% else %}
-      <li class="prev disabled"><a>&larr; Previous</a></li>
-    {% endif %}
-      <li><a href="{{ BASE_PATH }}{{ site.JB.archive_path }}">Archive</a></li>
-    {% if page.next %}
-      <li class="next"><a href="{{ BASE_PATH }}{{ page.next.url }}" title="{{ page.next.title }}">Next &raquo;</a></li>
-    {% else %}
-      <li class="next disabled"><a>Next &rarr;</a>
-    {% endif %}
-    </ul>
-    <hr>
-  </div>
-</div>
+<nav id="article-nav">
+  {% if page.previous %}
+  <a href="{{ BASE_PATH }}{{ page.previous.url }}" id="article-nav-newer" class="article-nav-link-wrap">
+    <strong class="article-nav-caption">&lt;</strong>
+    <div class="article-nav-title">{{ page.previous.title }}</div>
+  </a>
+  {% endif %}
+  {% if page.next %}
+  <a href="{{ BASE_PATH }}{{ page.next.url }}" id="article-nav-older" class="article-nav-link-wrap">
+    <div class="article-nav-title">{{ page.next.title }}</div>
+    <strong class="article-nav-caption">&gt;</strong>
+  </a>
+  {% endif %}
+</nav>
 </article>
-
-{% include JB/comments %}
+<div class="comments">
+  {% include JB/comments %}
+</div>
