@@ -1,6 +1,6 @@
-<div class="page-header" style="padding-left: 30px; padding-right: 30px;border-bottom-width: 2px;border-bottom-color: #FFF;">
-  <h1>{{ page.title }} {% if page.tagline %} <small>{{ page.tagline }}</small>{% endif %}</h1>
+<div class="article">
+    <header class="article-header">
+        <h1 itemprop="name"><a class="article-title" href="{{ page.url }}">{{ page.title }}{% if page.tagline %}<small>{{ page.tagline }}</small>{% endif %}</a></h1>
+    </header>
 </div>
-
 {{ content }}
-
