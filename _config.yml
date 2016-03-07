@@ -134,6 +134,10 @@ JB :
     provider : false
   posts_collate:
     provider: custom
+  tags_list:
+    provider: custom
+  categories_list:
+    provider: custom
     
   # Settings for all other include helpers can be defined by creating 
   # a hash with key named for the given helper. ex:
